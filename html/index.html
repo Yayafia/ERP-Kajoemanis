@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERP Kajoe Manis | Manufacturing Order</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">KM</span><div><b>Kajoe Manis</b><small>ERP Produksi & Penjualan</small></div></div>
+      <nav class="nav">
+        <a href="#" class="nav-item"><span>▦</span> Dashboard</a>
+        <a href="#" class="nav-item active"><span>▤</span> Manufacturing Order</a>
+        <a href="#" class="nav-item"><span>▧</span> Bahan Baku & Resep</a>
+        <a href="#" class="nav-item"><span>▣</span> Penjualan Produk</a>
+        <a href="#" class="nav-item"><span>▤</span> Laporan</a>
+      </nav>
+      <div class="sidebar-foot"><span class="avatar">A</span><div><b>Admin Kajoe Manis</b><small>Administrator</small></div><span class="dots">•••</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb"><span class="hamb">☰</span><span>Produksi</span><i>/</i><b>Manufacturing Order</b></div>
+        <div class="top-actions"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="Cari nomor MO atau produk..."><span class="top-avatar">A</span></div>
+      </header>
+
+      <section class="page-heading">
+        <div><p class="eyebrow">MODUL PRODUKSI</p><h1>Manufacturing Order</h1><p class="subheading">Kelola rencana, kebutuhan bahan, dan progres produksi Kajoe Manis.</p></div>
+        <div class="date-chip">◷ <span id="todayLabel">Hari ini</span></div>
+      </section>
+
+      <section class="stats">
+        <article class="stat-card"><div class="stat-top"><span>Total MO</span><span class="stat-icon">▤</span></div><strong id="statTotal">0</strong><small>Semua perintah produksi</small></article>
+        <article class="stat-card"><div class="stat-top"><span>In Progress</span><span class="stat-icon amber">◷</span></div><strong id="statProgress">0</strong><small>Sedang dikerjakan</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Pending</span><span class="stat-icon gray">Ⅱ</span></div><strong id="statPending">0</strong><small>Menunggu proses</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon green">✓</span></div><strong id="statCompleted">0</strong><small>Produksi selesai</small></article>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel create-panel">
+          <div class="panel-heading"><div><h2>Buat Manufacturing Order</h2><p>Isi rencana produksi baru</p></div><span class="plus">＋</span></div>
+          <form id="moForm">
+            <label for="productSelect">Produk <em>*</em></label>
+            <select id="productSelect" required>
+              <option value="">Pilih produk</option>
+              <option value="brownies">Brownies Burnt Cheesecake</option>
+              <option value="tape">Cake Tape</option>
+              <option value="soes">Kue Soes</option>
+            </select>
+            <div class="field-row">
+              <div><label for="qtyInput">Jumlah produksi <em>*</em></label><input id="qtyInput" type="number" min="1" value="1" required></div>
+              <div><label for="dateInput">Tanggal produksi <em>*</em></label><input id="dateInput" type="date" required></div>
+            </div>
+            <label for="sourceInput">Sumber permintaan</label>
+            <select id="sourceInput"><option>Produksi stok</option><option>Pesanan penjualan</option></select>
+            <label for="noteInput">Catatan</label>
+            <textarea id="noteInput" rows="3" placeholder="Contoh: produksi untuk pesanan akhir pekan..."></textarea>
+            <div class="bom-box">
+              <div class="bom-title"><div><b>Kebutuhan bahan baku</b><small>Estimasi otomatis berdasarkan resep</small></div><span class="bom-tag">BOM</span></div>
+              <div id="bomList" class="bom-list"><p class="empty-bom">Pilih produk untuk melihat kebutuhan bahan.</p></div>
+            </div>
+            <button class="primary-btn" type="submit">＋ &nbsp; Simpan & Jadwalkan MO</button>
+            <p class="form-hint">Data demo tersimpan di browser perangkat ini.</p>
+          </form>
+        </section>
+
+        <section class="panel orders-panel">
+          <div class="panel-heading orders-heading"><div><h2>Daftar Perintah Produksi</h2><p>Pantau status dan jadwal produksi</p></div><span class="active-count"><b id="activeCount">0</b> Active Recipes</span></div>
+          <div class="tabs" id="statusTabs">
+            <button class="tab selected" data-status="All">Semua Pesanan</button>
+            <button class="tab" data-status="In Progress">In Progress</button>
+            <button class="tab" data-status="Pending">Pending</button>
+            <button class="tab" data-status="Completed">Completed</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>BATCH / ITEM</th><th>JADWAL</th><th>YIELD</th><th>STATUS</th><th>AKSI</th></tr></thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+            <div id="emptyState" class="empty-state" hidden>Belum ada Manufacturing Order. Buat MO pertama melalui form di sebelah kiri.</div>
+          </div>
+          <div class="table-footer"><span id="resultCount">Menampilkan 0 data</span><span class="pagination">‹ <b>1</b> ›</span></div>
+        </section>
+      </section>
+      <footer>© 2026 Kajoe Manis · ERP Produksi dan Penjualan Kue</footer>
+    </main>
+  </div>
+</body>
+</html>
